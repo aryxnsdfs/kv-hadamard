@@ -95,17 +95,20 @@ fig.tight_layout(); fig.savefig(f"{FIG}/fig2_main_7b.png"); plt.close(fig)
 fig, ax = plt.subplots(figsize=(7.2, 5.0))
 # x = bits/elem, y = PPL @ P0/896 (7B). fp16 = REAL cache-path number (Kaggle Test A).
 # per-point label offsets (dx,dy in points) + alignment, so labels never collide.
+# All quantized schemes at KIVI's default residual (32-token fp16 shield),
+# so the comparison is matched (apples-to-apples). Ternary v32 = 3.7435
+# (NOT the v0 no-shield 3.9013 — mixing shields would be unfair).
 pts = [("fp16 (exact V)", 16, 3.5637, C["fp16"], (-12, 10), "right"),
        ("KIVI int4",       4, 3.6595, C["kivi"], (10, 10), "left"),
        ("Had-INT2 (ours)", 2, 3.6548, C["had_int2"], (6, -18), "left"),
-       ("Ternary",      1.58, 3.9013, C["ternary"], (12, 0), "left")]
+       ("Ternary",      1.58, 3.7435, C["ternary"], (12, 0), "left")]
 for name, b, p, c, off, ha in pts:
     ax.scatter(b, p, s=150, color=c, edgecolor="k", zorder=3)
     ax.annotate(name, (b, p), textcoords="offset points", xytext=off, ha=ha, fontsize=9.5)
 ax.axhline(3.6595, ls="--", color=C["kivi"], alpha=.5, label="KIVI quality line")
 ax.set_xlabel("bits per V element"); ax.set_ylabel("Perplexity @ P0/896 (7B)")
-ax.set_xlim(-0.5, 18.5); ax.set_ylim(3.52, 3.97)
-ax.set_title("Fig 3. Bits vs quality — Had-INT2 hits KIVI quality at 2 bits;\nternary falls off the line below 2 bits")
+ax.set_xlim(-0.5, 18.5); ax.set_ylim(3.52, 3.80)
+ax.set_title("Fig 3. Bits vs quality (matched 32-token residual) — Had-INT2 hits\nKIVI quality at 2 bits; ternary falls off the line below 2 bits")
 ax.legend(loc="center right")
 fig.tight_layout(); fig.savefig(f"{FIG}/fig3_bits_vs_quality.png"); plt.close(fig)
 

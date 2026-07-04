@@ -170,9 +170,11 @@ per-run JSON are released.
 
 \subsection{Quality: rotated 2-bit matches KIVI at half the bits}
 Figure~\ref{fig:bits} places each value scheme on a bits-vs-perplexity plane at
-a fixed evaluation point. The fp16 exact-value reference is 3.5637; KIVI's
-4-bit is 3.6595; our 2-bit is 3.6548---on the KIVI quality line at half the
-bits. Ternary (1.58-bit) sits well above it at 3.9013. Table~\ref{tab:robust}
+a fixed evaluation point, all quantized schemes at KIVI's default 32-token
+fp16 residual. The fp16 exact-value reference is 3.5637; KIVI's 4-bit is 3.6595;
+our 2-bit is 3.6548---on the KIVI quality line at half the bits. Ternary
+(1.58-bit) sits above it at 3.7435 (and degrades further, to 3.9013, with no
+residual shield). Table~\ref{tab:robust}
 shows this holds across three disjoint passages and two context lengths on
 Llama-2-7B, and Table~\ref{tab:tl} confirms it on TinyLlama-1.1B, where the
 gaps widen for the weaker schemes but our 2-bit stays within $\sim$2\% of KIVI.
