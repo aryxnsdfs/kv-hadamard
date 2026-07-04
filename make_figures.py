@@ -37,6 +37,15 @@ tl_kivi = [4.836, 4.830, 7.965, 8.884]
 tl_hi2  = [4.914, 4.916, 8.083, 8.984]
 tl_tern = [7.272, 7.164, 11.742, 12.623]
 
+# ---- Kaggle at-scale (kaggle_results.json): fp16 reference + memory scaling ----
+# Test A, Llama-2-7B, cache-path PPL / KV MB / tok/s (dual-T4).
+kag_A = {"fp16": (3.5637, 1024.0, None), "kivi": (3.6590, 327.5, 8.4), "b2": (3.6592, 263.6, 7.9)}
+# Test B, LLaMA-2-7B-32K, measured KV MB by context length.
+kag_len = [4096, 8192, 16384]           # 32k OOM'd (dense-prefill limit on 15GB T4)
+kag_fp16 = [2048.0, 4096.0, 8192.0]     # analytic reference
+kag_kivi = [646.9, 1301.7, 2567.6]
+kag_b2   = [519.5, 1046.8, 2059.4]
+
 
 # ======================================================================
 # FIG 1 — the measurement bug: blind (no-cache) hides everything.
@@ -84,8 +93,8 @@ fig.tight_layout(); fig.savefig(f"{FIG}/fig2_main_7b.png"); plt.close(fig)
 # FIG 3 — bits-vs-quality tradeoff (the money figure).
 # ======================================================================
 fig, ax = plt.subplots(figsize=(6.5, 4.6))
-# x = bits/elem, y = PPL @ P0/896 (7B). fp16 approximated by no-cache (exact V).
-pts = [("fp16 (exact V)", 16, 3.6416, C["fp16"]),
+# x = bits/elem, y = PPL @ P0/896 (7B). fp16 = REAL cache-path number (Kaggle Test A).
+pts = [("fp16 (exact V)", 16, 3.5637, C["fp16"]),
        ("KIVI int4", 4, 3.6595, C["kivi"]),
        ("Had-INT2 (ours)", 2, 3.6548, C["had_int2"]),
        ("Ternary", 1.58, 3.9013, C["ternary"])]
@@ -131,6 +140,39 @@ ax.axhline(0, color="k", lw=.8)
 ax.set_ylabel("Mean PPL gap over KIVI (%)")
 ax.set_title("Fig 5. Cross-model — Had-INT2 stays within ~2% of KIVI on both;\nternary's gap explodes on the smaller model")
 fig.tight_layout(); fig.savefig(f"{FIG}/fig5_cross_model.png"); plt.close(fig)
+
+# ======================================================================
+# FIG 6 — long-context KV-memory scaling (Kaggle, the "why it matters").
+# ======================================================================
+fig, ax = plt.subplots(figsize=(7.5, 4.8))
+xk = [n // 1024 for n in kag_len]
+ax.plot(xk, kag_fp16, 'o--', color=C["fp16"], lw=2, label="fp16 (analytic)")
+ax.plot(xk, kag_kivi, 's-', color=C["kivi"], lw=2, label="KIVI int4")
+ax.plot(xk, kag_b2, 'D-', color=C["had_int2"], lw=2, label="B2 packed Had-INT2 (ours)")
+ax.axvline(32, ls=":", color="#999")
+ax.text(31.5, ax.get_ylim()[1]*0.5, "32k: dense-prefill OOM\non 15GB T4 (not a\nstorage limit)", ha="right", fontsize=8, color="#666")
+ax.set_xlabel("context length (k tokens)"); ax.set_ylabel("KV cache MB (measured)")
+ax.set_title("Fig 6. Long-context KV-memory scaling (Llama-2-7B-32K)\nB2 ~20% under KIVI, ~4x under fp16, at every length")
+ax.legend(); fig.tight_layout(); fig.savefig(f"{FIG}/fig6_longctx_memory.png"); plt.close(fig)
+
+# ======================================================================
+# FIG 7 — at-scale three-way (Kaggle Test A): quality + memory + speed.
+# ======================================================================
+fig, axs = plt.subplots(1, 3, figsize=(13, 4))
+ks = ["fp16", "kivi", "b2"]; labels = ["fp16", "KIVI\nint4", "B2\nHad-INT2"]
+cols = [C["fp16"], C["kivi"], C["had_int2"]]
+axs[0].bar(labels, [kag_A[k][0] for k in ks], color=cols, edgecolor="k")
+axs[0].set_ylim(3.5, 3.72); axs[0].set_title("Cache-path PPL (real)")
+for i, k in enumerate(ks): axs[0].text(i, kag_A[k][0]+0.004, f"{kag_A[k][0]:.4f}", ha="center", fontsize=9)
+axs[1].bar(labels, [kag_A[k][1] for k in ks], color=cols, edgecolor="k")
+axs[1].set_title("KV MB @2048 (measured)")
+for i, k in enumerate(ks): axs[1].text(i, kag_A[k][1]+15, f"{kag_A[k][1]:.0f}", ha="center", fontsize=9)
+tps = [kag_A[k][2] or 0 for k in ks]
+axs[2].bar(labels, tps, color=cols, edgecolor="k"); axs[2].set_title("decode tok/s")
+axs[2].text(0, 0.3, "split\n(N/A)", ha="center", fontsize=9)
+for i in (1, 2): axs[2].text(i, tps[i]+0.15, f"{tps[i]:.1f}", ha="center", fontsize=9)
+fig.suptitle("Fig 7. At-scale three-way (Kaggle dual-T4) — B2 matches KIVI quality, less memory")
+fig.tight_layout(); fig.savefig(f"{FIG}/fig7_atscale_threeway.png"); plt.close(fig)
 
 print("wrote:")
 for f in sorted(os.listdir(FIG)):

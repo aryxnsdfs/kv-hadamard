@@ -1,0 +1,17 @@
+{
+  "env": "Kaggle dual Tesla T4 16GB, torch 2.7.0+cu128, transformers 4.44.2",
+  "A": {
+    "model": "NousResearch/Llama-2-7b-hf",
+    "fp16": {"ppl": 3.5637, "kv_mb": 1024.0, "kv_mb_kind": "analytic", "tps": null},
+    "kivi": {"ppl": 3.6590, "kv_mb": 327.5, "kv_mb_kind": "empirical", "tps": 8.4},
+    "b2":   {"ppl": 3.6592, "kv_mb": 263.6, "kv_mb_kind": "empirical", "tps": 7.9}
+  },
+  "B": {
+    "model": "togethercomputer/LLaMA-2-7B-32K",
+    "lengths": [4096, 8192, 16384, 32768],
+    "fp16_analytic": {"4096": 2048.0, "8192": 4096.0, "16384": 8192.0, "32768": 16384.0},
+    "kivi": {"4096": 646.9, "8192": 1301.7, "16384": 2567.6, "32768": "OOM"},
+    "b2":   {"4096": 519.5, "8192": 1046.8, "16384": 2059.4, "32768": "OOM"},
+    "note": "32k OOM is a dense-prefill activation limit on the 15GB T4, NOT a KV-storage limit."
+  }
+}

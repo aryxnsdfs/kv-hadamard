@@ -228,6 +228,39 @@ the fake-quant PPL to 4 decimals — the real storage is faithful to what the
 robustness sweep validated. **All three claims (quality, memory, speed) are
 now empirical.**
 
+### Cloud / at-scale validation (Kaggle dual-T4, `kv_hadamard_kaggle_tests.ipynb`)
+
+Independently reproduced on a fresh machine (Kaggle, torch 2.7.0+cu128,
+transformers 4.44.2, dual Tesla T4), adding the **fp16 exact-V reference** the
+12GB local card could not fit, and **long-context memory scaling**.
+
+**Test A — three-way on Llama-2-7B (cache-path PPL):**
+
+| scheme | bits/V | PPL | KV MB@2048 | tok/s |
+|---|---|---|---|---|
+| fp16 (exact V) | 16 | **3.5637** | 1024 (analytic) | — (split) |
+| KIVI int4 | 4 | 3.6590 | 327.5 | 8.4 |
+| B2 packed Had-INT2 | 2 | 3.6592 | 263.6 | 7.9 |
+
+The fp16 anchor shows **all** KV quantization (int4 and 2-bit alike) costs only
+~0.9% PPL vs exact; **B2 equals KIVI to 3 decimals** (3.6592 vs 3.6590) on a
+second, independent environment.
+
+**Test B — long-context KV-memory scaling (Llama-2-7B-32K, measured MB):**
+
+| ctx | fp16 (analytic) | KIVI int4 | B2 Had-INT2 | B2 vs fp16 |
+|---|---|---|---|---|
+| 4k | 2048 | 646.9 | 519.5 | 3.9x |
+| 8k | 4096 | 1301.7 | 1046.8 | 3.9x |
+| 16k | 8192 | 2567.6 | 2059.4 | 4.0x |
+| 32k | 16384 | OOM | OOM | — |
+
+B2 holds a consistent **~20% under KIVI and ~4x under fp16 at every length**.
+**Honest caveat:** the 32k OOM affected *both* KIVI and B2 and is a
+**dense-prefill activation limit on the 15GB T4, not a KV-storage limit** (the
+allocator failed mid-prefill-forward, not on the cache). Demonstrating the
+"B2 fits where fp16 OOMs" crossover needs a larger card or chunked prefill.
+
 ### Phase 2A (Llama-2-7B, KIVI reproduction)
 
 | | NF4 (fp16 KV) | KIVI (INT4 KV) |
