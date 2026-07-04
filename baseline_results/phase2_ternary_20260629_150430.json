@@ -1,0 +1,123 @@
+{
+  "model_name": "NousResearch/Llama-2-7b-hf",
+  "baseline": "ternary",
+  "timestamp": "2026-06-29T14:28:19.963790",
+  "environment": {
+    "gpu": "RTX 3060 12GB",
+    "torch": "2.5.1+cu121",
+    "phase": "2-pre-ternary (three-baseline 7B)"
+  },
+  "config": {
+    "model_name": "NousResearch/Llama-2-7b-hf",
+    "dtype": "torch.float16",
+    "device": "cuda",
+    "context_lengths": [
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "num_layers": 16,
+    "num_kv_heads": 8,
+    "head_dim": 64,
+    "batch_size": 1,
+    "wikitext_dataset": "Salesforce/wikitext",
+    "wikitext_config": "wikitext-103-raw-v1",
+    "wikitext_split": "test",
+    "wikitext_stride": 512,
+    "wikitext_max_eval_tokens": 30000,
+    "gsm8k_dataset": "openai/gsm8k",
+    "gsm8k_config": "main",
+    "gsm8k_split": "test",
+    "gsm8k_n": 40,
+    "gsm8k_max_new_tokens": 256,
+    "gsm8k_stop_strings": [
+      "\nQuestion:",
+      "\n\nQuestion"
+    ],
+    "gsm8k_transcript_count": 5,
+    "decode_prompt_tokens": 64,
+    "decode_warmup_tokens": 32,
+    "decode_measure_tokens": 256,
+    "output_dir": "./baseline_results"
+  },
+  "per_context_length": {
+    "2048": {
+      "perplexity": {
+        "perplexity": 4.8944824017622715,
+        "window": 2048,
+        "stride": 512,
+        "scored_tokens": 28464,
+        "eval_tokens": 30000
+      },
+      "kv_memory": {
+        "analytic_mb": 1024.0,
+        "empirical_mb": 678.75,
+        "diverged": true,
+        "weights_note": "Measured as allocator delta; excludes static ~2.4GB FP16 weights resident before measurement."
+      }
+    },
+    "4096": {
+      "perplexity": {
+        "perplexity": 4.722267321344958,
+        "window": 4096,
+        "stride": 512,
+        "scored_tokens": 26416,
+        "eval_tokens": 30000
+      },
+      "kv_memory": {
+        "analytic_mb": 2048.0,
+        "empirical_mb": 1352.25,
+        "diverged": true,
+        "weights_note": "Measured as allocator delta; excludes static ~2.4GB FP16 weights resident before measurement."
+      }
+    },
+    "8192": {
+      "perplexity": {
+        "perplexity": NaN,
+        "window": 8192,
+        "stride": 512,
+        "scored_tokens": 22320,
+        "eval_tokens": 30000
+      },
+      "kv_memory": {
+        "analytic_mb": 4096.0,
+        "empirical_mb": 2696.25,
+        "diverged": true,
+        "weights_note": "Measured as allocator delta; excludes static ~2.4GB FP16 weights resident before measurement."
+      }
+    },
+    "16384": {
+      "perplexity": {
+        "perplexity": NaN,
+        "window": 16384,
+        "stride": 512,
+        "scored_tokens": 14128,
+        "eval_tokens": 30000
+      },
+      "kv_memory": {
+        "analytic_mb": 8192.0,
+        "empirical_mb": 5383.75,
+        "diverged": true,
+        "weights_note": "Measured as allocator delta; excludes static ~2.4GB FP16 weights resident before measurement."
+      }
+    }
+  },
+  "gsm8k": {
+    "accuracy": 0.0,
+    "correct": 0,
+    "total": 40,
+    "transcripts_path": "./baseline_results/gsm8k_transcripts_20260629_144429.json",
+    "answer_regex": "-?\\$?\\d[\\d,]*(?:\\.\\d+)?"
+  },
+  "decode": {
+    "tokens_per_sec": 10.423524885378365,
+    "measured_tokens": 256,
+    "elapsed_s": 24.559830078125,
+    "prefill_tokens": 64
+  },
+  "scheme": {
+    "weights": "nf4",
+    "kv": "kivi-int4-K + ternary-V (B1 sim, fp16 storage)"
+  }
+}

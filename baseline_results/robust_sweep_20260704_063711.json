@@ -1,0 +1,54 @@
+{
+  "NousResearch/Llama-2-7b-hf": {
+    "scheme_bits": {
+      "ternary v0": 1.58,
+      "had-int2 v32": 2,
+      "had-int2 v0": 2,
+      "had-ternary v0": 1.58
+    },
+    "rows": [
+      {
+        "scheme": "kivi int4 v32",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "no-cache",
+        "ppl": 3.6416
+      },
+      {
+        "scheme": "kivi int4 v32",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "cache",
+        "ppl": 3.6595
+      },
+      {
+        "scheme": "ternary v0",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "cache",
+        "ppl": 3.9013
+      },
+      {
+        "scheme": "had-int2 v32",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "cache",
+        "ppl": 3.6548
+      },
+      {
+        "scheme": "had-int2 v0",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "cache",
+        "ppl": 3.6786
+      },
+      {
+        "scheme": "had-ternary v0",
+        "passage": "P0(@0k)",
+        "N": 896,
+        "method": "cache",
+        "ppl": 3.8985
+      }
+    ]
+  }
+}

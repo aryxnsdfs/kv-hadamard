@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?\nAnswer:",
+    "generation": " 16 eggs per day x 3 breakfasts x 4 muffins x 2 eggs per dollar x 4 farmers' market = 48 eggs per day x 2 farmers' market = 96 eggs per day x 4 farmers' market = 384 eggs per day x 8 farmers' market = 3,072 eggs per day x 16 farmers' market = 48,256 eggs per day x 32 farmers' market = 1,536,256 eggs per day x 64 farmers' market = 97,296,256 eggs per day x 128 farmers' market = 1,224,832,256 eggs per day x 256 farmers' market = 3,072,832,256 eggs per day x 512 farmers' market = 6,145,664,256 eggs per day x 1,024 farmers' market = 15,291,328,256 eggs per day x 2,048 farmers' market = 31,582,656,256 eggs per day x 4,096 farmers' market = 127,184,512,256 eggs per day x 8,192 farmers' market = 410,368,256,256 eggs per day x 16,384",
+    "gold": "18",
+    "pred": "16384",
+    "correct": false
+  },
+  {
+    "index": 1,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?\nAnswer:",
+    "generation": " 4 bolts\n\nQuestion",
+    "gold": "3",
+    "pred": "4",
+    "correct": false
+  },
+  {
+    "index": 2,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?\nAnswer:",
+    "generation": " 150% of 50,000 = 75,000\n\nQuestion",
+    "gold": "70000",
+    "pred": "75000",
+    "correct": false
+  },
+  {
+    "index": 3,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: James decides to run 3 sprints 3 times a week.  He runs 60 meters each sprint.  How many total meters does he run a week?\nAnswer:",
+    "generation": " 180 meters\n\nQuestion",
+    "gold": "540",
+    "pred": "180",
+    "correct": false
+  },
+  {
+    "index": 4,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Every day, Wendi feeds each of her chickens three cups of mixed chicken feed, containing seeds, mealworms and vegetables to help keep them healthy.  She gives the chickens their feed in three separate meals. In the morning, she gives her flock of chickens 15 cups of feed.  In the afternoon, she gives her chickens another 25 cups of feed.  How many cups of feed does she need to give her chickens in the final meal of the day if the size of Wendi's flock is 20 chickens?\nAnswer:",
+    "generation": " 50 cups of feed\n\nStep 1: \u00a0Let x be the number of cups of feed Wendi needs to give her chickens in the final meal of the day. \u00a0Since Wendi gives her chickens 3 meals of feed, we can write the following equation:\n\nx + 15 + 25 = 50\n\nStep 2: \u00a0We can solve this equation by adding 15 and 25 to both sides of the equation. \u00a0We get:\n\nx + 15 + 25 = 50\n\nx + 40 = 50\n\nx = 10\n\nStep 3: \u00a0We can now substitute x = 10 into the original equation to find the number of cups of feed Wendi needs to give her chickens in the final meal of the day:\n\nx + 15 + 25 = 50\n\n10 + 15 + 25 = 50\n\n25 = 50\n\nStep 4: \u00a0We can now solve for x:\n\nx + 15 + 25 = 50\n\nx + 40 = 50\n\nx = 10\n\nStep 5: \u00a0We can now substitute x = 10 into the original equation to find the number of cups of feed Wendi needs",
+    "gold": "20",
+    "pred": "10",
+    "correct": false
+  }
+]

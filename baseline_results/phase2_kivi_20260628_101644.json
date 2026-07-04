@@ -1,0 +1,50 @@
+{
+  "model_name": "NousResearch/Llama-2-7b-hf",
+  "baseline": "kivi",
+  "timestamp": "2026-06-28T10:16:44.180917",
+  "environment": {
+    "gpu": "RTX 3060 12GB",
+    "torch": "2.5.1+cu121",
+    "phase": "2-pre-ternary (three-baseline 7B)"
+  },
+  "config": {
+    "model_name": "NousResearch/Llama-2-7b-hf",
+    "dtype": "torch.bfloat16",
+    "device": "cuda",
+    "context_lengths": [
+      2048,
+      4096,
+      8192,
+      16384
+    ],
+    "num_layers": 16,
+    "num_kv_heads": 8,
+    "head_dim": 64,
+    "batch_size": 1,
+    "wikitext_dataset": "Salesforce/wikitext",
+    "wikitext_config": "wikitext-103-raw-v1",
+    "wikitext_split": "test",
+    "wikitext_stride": 512,
+    "wikitext_max_eval_tokens": 30000,
+    "gsm8k_dataset": "openai/gsm8k",
+    "gsm8k_config": "main",
+    "gsm8k_split": "test",
+    "gsm8k_n": 40,
+    "gsm8k_max_new_tokens": 256,
+    "gsm8k_stop_strings": [
+      "\nQuestion:",
+      "\n\nQuestion"
+    ],
+    "gsm8k_transcript_count": 5,
+    "decode_prompt_tokens": 64,
+    "decode_warmup_tokens": 32,
+    "decode_measure_tokens": 256,
+    "output_dir": "./baseline_results"
+  },
+  "per_context_length": {},
+  "gsm8k": null,
+  "decode": null,
+  "load": {
+    "error": "LlamaRotaryEmbedding.__init__() got an unexpected keyword argument 'config'"
+  }
+}

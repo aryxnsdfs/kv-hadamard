@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?\nAnswer:",
+    "generation": "$16 - 3 - 4 = $7\n\nComment: I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment: @JoeTaxpayer I'm voting to close this question as off-topic because it is a homework question.\n\nComment",
+    "gold": "18",
+    "pred": "7",
+    "correct": false
+  },
+  {
+    "index": 1,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?\nAnswer:",
+    "generation": "3\n\n## Solution\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1 \\times \\frac 12 = \\frac 12$\n\n$2 \\times \\frac 12 = 1$\n\n$1",
+    "gold": "3",
+    "pred": "1",
+    "correct": false
+  },
+  {
+    "index": 2,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Josh decides to try flipping a house.  He buys a house for $80,000 and then puts in $50,000 in repairs.  This increased the value of the house by 150%.  How much profit did he make?\nAnswer:",
+    "generation": "$15,000\n\n### Solution\n\n$80,000 + 50,000 = 130,000$\n\n$130,000 \\times \\frac{150\\%}{100\\%} = 195,000$\n\n$195,000 - 80,000 = 115,000$\n\n$115,000 - 50,000 = 65,000$\n\n$65,000 \\times \\frac{100\\%}{150\\%} = 43,750$\n\n$43,750 - 50,000 = -6,250$\n\n$6,250 \\times \\frac{100\\%}{150\\%} = -4,167$\n\n$4,167 \\times \\frac{100\\%}{150\\%} = -2,743$\n\n$2,74",
+    "gold": "70000",
+    "pred": "274",
+    "correct": false
+  },
+  {
+    "index": 3,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: James decides to run 3 sprints 3 times a week.  He runs 60 meters each sprint.  How many total meters does he run a week?\nAnswer:",
+    "generation": "180 meters\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times 3 \\times 60 = 180$\n\n### Solution\n\n$3 \\times",
+    "gold": "540",
+    "pred": "3",
+    "correct": false
+  },
+  {
+    "index": 4,
+    "prompt": "Answer the following math problem. Show your reasoning, then give the final numeric answer.\n\nQuestion: Every day, Wendi feeds each of her chickens three cups of mixed chicken feed, containing seeds, mealworms and vegetables to help keep them healthy.  She gives the chickens their feed in three separate meals. In the morning, she gives her flock of chickens 15 cups of feed.  In the afternoon, she gives her chickens another 25 cups of feed.  How many cups of feed does she need to give her chickens in the final meal of the day if the size of Wendi's flock is 20 chickens?\nAnswer:",
+    "generation": "100 cups\n\n### Solution\n\nThe first step is to find the total amount of feed needed for the day.\n\n$15 + 25 + 100 = 140$ cups of feed\n\nNext, we need to find the number of cups of feed needed for the final meal.\n\n$140 \\div 20 = 7$ cups of feed\n\nFinally, we need to find the number of cups of feed needed for the final meal.\n\n$7 \\times 20 = 140$ cups of feed\n\n### Solution 2\n\nThe first step is to find the total amount of feed needed for the day.\n\n$15 + 25 + 100 = 140$ cups of feed\n\nNext, we need to find the number of cups of feed needed for the final meal.\n\n$140 \\div 20 = 7$ cups of feed\n\nFinally, we need to find the number of cups of feed needed for the final meal.\n\n$7 \\times ",
+    "gold": "20",
+    "pred": "7",
+    "correct": false
+  }
+]
