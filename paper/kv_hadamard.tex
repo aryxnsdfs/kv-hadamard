@@ -150,6 +150,14 @@ of codes plus 16 bytes of per-group scale/min, and our packed 2-bit value 32
 bytes of codes plus the same 16 bytes---80 vs.\ 48 bytes, a 1.67$\times$
 value-cache reduction over KIVI.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.5\linewidth]{fig4_memory.png}
+\caption{Measured KV-cache memory at 2048 tokens (Llama-2-7B). The packed 2-bit
+value cache is 3.9$\times$ smaller than fp16 and 20\% smaller than KIVI's INT4.}
+\label{fig:mem}
+\end{figure}
+
 \paragraph{Two-stage methodology.} We separate the \emph{quality} question from
 the \emph{kernel} question. Stage~B1 simulates the quantizer
 (quantize$\to$dequantize, stored fp16) to answer ``does 2-bit rotated value
@@ -289,7 +297,16 @@ limit on the 15\,GB GPU, not the cache.}
 Test~A was reproduced independently on a second environment (a different GPU,
 torch, and transformers stack), yielding the fp16 reference of 3.5637 and B2
 matching KIVI to three decimals (3.6592 vs.\ 3.6590), corroborating the local
-measurements.
+measurements (Figure~\ref{fig:atscale}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{fig7_atscale_threeway.png}
+\caption{Independent at-scale reproduction (dual-T4): cache-path perplexity,
+measured KV memory, and decode throughput for fp16, KIVI, and B2 on Llama-2-7B.
+B2 matches KIVI quality with less memory.}
+\label{fig:atscale}
+\end{figure}
 
 \section{Limitations}
 We state these plainly. (1) We compare only against KIVI, not the strongest
