@@ -70,9 +70,9 @@ ax.bar(x - w/2, blind, w, label="blind eval (use_cache=False)", color="#ccc", ed
 ax.bar(x + w/2, real,  w, label="cache-path eval (real)", color=["#444", C["ternary"], C["had_int2"]],
        edgecolor="k", linewidth=.5)
 ax.set_xticks(x); ax.set_xticklabels(schemes)
-ax.set_ylim(3.5, 4.0); ax.set_ylabel("Perplexity @ P0/896")
+ax.set_ylim(3.5, 4.12); ax.set_ylabel("Perplexity @ P0/896")
 ax.set_title("Fig 1b. Blind eval scores every scheme identically (3.6416)\nonly the cache path reveals the real differences")
-ax.legend()
+ax.legend(loc="upper left", framealpha=0.95)
 fig.tight_layout(); fig.savefig(f"{FIG}/fig1b_blind_collapse.png"); plt.close(fig)
 
 # ======================================================================
@@ -92,19 +92,21 @@ fig.tight_layout(); fig.savefig(f"{FIG}/fig2_main_7b.png"); plt.close(fig)
 # ======================================================================
 # FIG 3 — bits-vs-quality tradeoff (the money figure).
 # ======================================================================
-fig, ax = plt.subplots(figsize=(6.5, 4.6))
+fig, ax = plt.subplots(figsize=(7.2, 5.0))
 # x = bits/elem, y = PPL @ P0/896 (7B). fp16 = REAL cache-path number (Kaggle Test A).
-pts = [("fp16 (exact V)", 16, 3.5637, C["fp16"]),
-       ("KIVI int4", 4, 3.6595, C["kivi"]),
-       ("Had-INT2 (ours)", 2, 3.6548, C["had_int2"]),
-       ("Ternary", 1.58, 3.9013, C["ternary"])]
-for name, b, p, c in pts:
-    ax.scatter(b, p, s=140, color=c, edgecolor="k", zorder=3)
-    ax.annotate(name, (b, p), textcoords="offset points", xytext=(8, 6), fontsize=9)
+# per-point label offsets (dx,dy in points) + alignment, so labels never collide.
+pts = [("fp16 (exact V)", 16, 3.5637, C["fp16"], (-12, 10), "right"),
+       ("KIVI int4",       4, 3.6595, C["kivi"], (10, 10), "left"),
+       ("Had-INT2 (ours)", 2, 3.6548, C["had_int2"], (6, -18), "left"),
+       ("Ternary",      1.58, 3.9013, C["ternary"], (12, 0), "left")]
+for name, b, p, c, off, ha in pts:
+    ax.scatter(b, p, s=150, color=c, edgecolor="k", zorder=3)
+    ax.annotate(name, (b, p), textcoords="offset points", xytext=off, ha=ha, fontsize=9.5)
 ax.axhline(3.6595, ls="--", color=C["kivi"], alpha=.5, label="KIVI quality line")
 ax.set_xlabel("bits per V element"); ax.set_ylabel("Perplexity @ P0/896 (7B)")
-ax.set_xlim(0.8, 17); ax.set_title("Fig 3. Bits vs quality — Had-INT2 hits KIVI quality at 2 bits;\nternary falls off the line below 2 bits")
-ax.legend()
+ax.set_xlim(-0.5, 18.5); ax.set_ylim(3.52, 3.97)
+ax.set_title("Fig 3. Bits vs quality — Had-INT2 hits KIVI quality at 2 bits;\nternary falls off the line below 2 bits")
+ax.legend(loc="center right")
 fig.tight_layout(); fig.savefig(f"{FIG}/fig3_bits_vs_quality.png"); plt.close(fig)
 
 # ======================================================================
