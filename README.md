@@ -207,6 +207,27 @@ Established the measurement harness and killed three false "OOM" bugs
 trusting any downstream number. Validated identically on Windows and WSL.
 See `PROJECT_REPORT.md` and `PHASE2_README.md` for the full writeup.
 
+### B2 — real packed 2-bit storage (`b2_packed_int2.py`)
+
+The sweep above proved quality with *simulated* (fake-quant, fp16-stored)
+compression. B2 removes the simulation: V codes are stored as genuine packed
+2-bit bytes (4 codes per uint8) in rotated space, with per-group fp16
+scale/min, dequantized on read. Attention runs in rotated space and the
+output is rotated back once per step (`A @ (VrH) == (A @ Vr) H`).
+
+| | KIVI int4 | **B2 packed Hadamard-INT2** |
+|---|---|---|
+| PPL (cache path, 896) | 3.6595 | **3.6548** — identical to fake-quant B1 |
+| KV cache @2048, **measured bytes** | 327.5 MB | **263.6 MB (−20%)** |
+| KV cache vs fp16 baseline (1024 MB) | 3.1× smaller | **3.9× smaller** |
+| decode tok/s | 9.5 | 8.4 (−12%, no fused kernel yet) |
+
+The measured memory saving matches the arithmetic prediction
+(V: 80 → 48 bytes/token/head incl. scale overhead), and the packed PPL equals
+the fake-quant PPL to 4 decimals — the real storage is faithful to what the
+robustness sweep validated. **All three claims (quality, memory, speed) are
+now empirical.**
+
 ### Phase 2A (Llama-2-7B, KIVI reproduction)
 
 | | NF4 (fp16 KV) | KIVI (INT4 KV) |
