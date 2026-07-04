@@ -1,0 +1,221 @@
+{
+  "rows": [
+    {
+      "model": "NousResearch/Llama-2-7b-hf",
+      "scheme": "kivi int4 v32",
+      "passage": "P0(@0k)",
+      "N": 3584,
+      "method": "cache",
+      "ppl": 4.775698822605393
+    },
+    {
+      "model": "NousResearch/Llama-2-7b-hf",
+      "scheme": "ternary v0",
+      "passage": "P0(@0k)",
+      "N": 3584,
+      "method": "cache",
+      "ppl": 5.412547571709626
+    },
+    {
+      "model": "NousResearch/Llama-2-7b-hf",
+      "scheme": "had-int2 v0",
+      "passage": "P0(@0k)",
+      "N": 3584,
+      "method": "cache",
+      "ppl": 4.908332071740719
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "no-cache",
+      "ppl": 4.794160180350618
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 4.836130157333004
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "no-cache",
+      "ppl": 4.792354729609539
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 4.829599517402171
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "no-cache",
+      "ppl": 7.912963992136889
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 7.964962346247486
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "no-cache",
+      "ppl": 8.867400645874532
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "kivi int4 v32",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 8.883724783561574
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "ternary v0",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 7.271919934201488
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "ternary v0",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 7.1639014451121845
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "ternary v0",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 11.742030194675168
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "ternary v0",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 12.622962586748441
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v32",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 4.913727789780151
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v32",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 4.915559933191956
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v32",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 8.08256412733827
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v32",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 8.98440549005134
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v0",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 5.050979673494013
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v0",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 5.0653170174680415
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v0",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 8.637296061834176
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-int2 v0",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 9.353675101499245
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-ternary v0",
+      "passage": "P0(@0k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 5.624498677511144
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-ternary v0",
+      "passage": "P0(@0k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 5.915113909833344
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-ternary v0",
+      "passage": "P1(@60k)",
+      "N": 896,
+      "method": "cache",
+      "ppl": 10.754450095439243
+    },
+    {
+      "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "scheme": "had-ternary v0",
+      "passage": "P1(@60k)",
+      "N": 1792,
+      "method": "cache",
+      "ppl": 11.296638699943072
+    }
+  ],
+  "gsm8k": {}
+}

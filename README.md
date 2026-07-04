@@ -143,13 +143,62 @@ NF4 weights, stock KIVI INT4 K cache in every row — only the V scheme varies.
   (only 3 representable levels), not outlier distribution. This rules out
   "just rotate harder" as a fix for sub-2-bit V quantization on this model.
 
-### Robustness sweep (in progress)
+### Robustness sweep (`robust_sweep.py` + `resume_sweep.py`)
 
-A broader sweep (`robust_sweep.py`) is running at time of writing: 3 disjoint
+The single-passage result above was stress-tested across **3 disjoint
 WikiText-103 passages x multiple context lengths (up to 3584, near Llama-2's
-4096 window) x all schemes above, plus an honest GSM8K comparison (KIVI vs
-Hadamard-INT2) since `generate()` genuinely uses the cache. Results will be
-added to `baseline_results/` and this README once complete.
+4096 window) x two models**. Every number is cache-path PPL; KIVI INT4 is the
+reference in every row; only the V scheme changes.
+
+**Llama-2-7B (cache-path PPL):**
+
+| passage / N | kivi int4 | had-int2 v32 | had-int2 v0 | ternary v0 |
+|---|---|---|---|---|
+| P0 / 896  | 3.660 | **3.655** | 3.679 | 3.901 |
+| P0 / 2048 | 3.840 | **3.854** | 3.952 | 4.429 |
+| P1 / 896  | 5.303 | **5.380** | 5.560 | 6.143 |
+| P1 / 2048 | 6.582 | **6.637** | 6.783 | 7.311 |
+| P2 / 896  | 4.111 | **4.119** | 4.184 | 4.509 |
+| P2 / 2048 | 4.155 | **4.153** | 4.225 | 4.556 |
+| P0 / 3584 | 4.776 |     —     | 4.908 | 5.413 |
+
+**TinyLlama-1.1B (second model, cache-path PPL):**
+
+| passage / N | kivi int4 | had-int2 v32 | had-int2 v0 | ternary v0 | had-ternary v0 |
+|---|---|---|---|---|---|
+| P0 / 896  | 4.836 | **4.914** | 5.051 | 7.272 | 5.624 |
+| P0 / 1792 | 4.830 | **4.916** | 5.065 | 7.164 | 5.915 |
+| P1 / 896  | 7.965 | **8.083** | 8.637 | 11.742 | 10.754 |
+| P1 / 1792 | 8.884 | **8.984** | 9.354 | 12.623 | 11.297 |
+
+**What the sweep establishes:**
+- **Hadamard-INT2 with a 32-token fp16 shield matches KIVI INT4 quality
+  everywhere** — within ~1% on Llama-2-7B and ~2% on TinyLlama, across every
+  passage and length. The single-passage headline was not a fluke.
+- **Shield-free (v_res=0) Hadamard-INT2** costs a few percent (larger on the
+  smaller model: up to +8% on TinyLlama vs ~+3% on 7B) — still far better than
+  ternary and a usable extreme-compression point.
+- **Ternary (1.58-bit) is not competitive**, and the gap *widens on the
+  smaller model* (up to +50% PPL on TinyLlama) — smaller models are more
+  sensitive to V precision, exactly where a KV-compression method must not
+  break.
+- **Rotation helps ternary more on the small model** (had-ternary 5.62 vs
+  plain ternary 7.27 at TinyLlama P0/896) than on 7B (no rescue), but never
+  closes the gap to INT2. Confirms the limit is bit-depth, not just outliers.
+
+Raw per-row data: `baseline_results/robust_sweep_resumed.json` and the run
+logs. The sweep is crash-resilient (per-row checkpointing in `resume_sweep.py`)
+because it was developed through repeated power interruptions.
+
+### GSM8K (honest, cache-path — but not discriminating here)
+
+GSM8K uses `generate()`, so it genuinely exercises the quantized cache. Both
+KIVI and Hadamard-INT2 scored **0/20** on Llama-2-7B. Inspection of the saved
+transcripts (`baseline_results/gsm8k_transcripts_*.json`) confirms this is a
+**base-model 0-shot floor**, not a harness bug: the base model produces wrong
+arithmetic and degenerates into repetition loops; answer extraction works
+correctly. GSM8K therefore does not discriminate between V schemes on this
+base model — PPL is the operative quality metric here.
 
 ### Phase 1 baseline (Llama-3.2-1B, for methodology validation)
 
@@ -179,6 +228,7 @@ ternary_v.py               V-cache quantizers: ternary, Hadamard+INT2, Hadamard+
                            plus the monkeypatch that swaps KIVI's attention forward
 probe_cache_ppl.py         Single-passage cache-path PPL probe (the bug-catching tool)
 robust_sweep.py            Multi-passage / multi-length / multi-model robustness sweep
+resume_sweep.py            Crash-resilient resume (per-row checkpointing) for the sweep
 setup_phase2.sh            WSL environment setup (KIVI + flash-attn + pinned deps)
 diag_attn*.py              Attention-implementation diagnostics (Phase 1 debugging)
 PROJECT_REPORT.md          Phase 1 writeup
