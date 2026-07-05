@@ -9,6 +9,17 @@ scalar Hadamard-rotation + INT2 value-cache scheme that matches KIVI's
 4-bit quality at half the bits — measured through the cache path generation
 actually uses, not a blind forward pass.
 
+## 📄 Paper
+
+**[Read the full paper (PDF)](paper/kv_hadamard_paper.pdf)** · LaTeX source:
+[`paper/kv_hadamard.tex`](paper/kv_hadamard.tex)
+
+![Long-context KV-memory scaling](figures/fig6_longctx_memory.png)
+
+*Hadamard-rotated 2-bit value cache: matches KIVI's 4-bit quality at half the
+bits, ~20% less memory than KIVI and ~4× less than fp16, measured on the real
+decode path across two models.*
+
 ## Why this exists
 
 Long conversations blow up GPU memory because every token's Key and Value
