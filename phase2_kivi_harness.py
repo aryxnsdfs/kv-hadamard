@@ -29,7 +29,7 @@ Llama-2 and KIVI, so all three baselines share one environment = clean parity):
     python3 phase2_kivi_harness.py --baseline fp16     # cloud / big-GPU only
     python3 phase2_kivi_harness.py --compare           # diff all three JSONs
 
-READ PHASE2_README.md.
+
 """
 
 import os
@@ -154,7 +154,7 @@ def load_kivi():
         kivi_mod = importlib.import_module(KIVI_CONFIG["kivi_module"])
         KiviClass = getattr(kivi_mod, KIVI_CONFIG["kivi_class"])
     except Exception as e:
-        log.error(f"Could not import KIVI ({e}). See PHASE2_README.md.")
+        log.error(f"Could not import KIVI ({e}).")
         raise
 
     config = LlamaConfig.from_pretrained(CONFIG["model_name"])

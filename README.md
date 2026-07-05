@@ -154,7 +154,7 @@ NF4 weights, stock KIVI INT4 K cache in every row — only the V scheme varies.
   (only 3 representable levels), not outlier distribution. This rules out
   "just rotate harder" as a fix for sub-2-bit V quantization on this model.
 
-### Robustness sweep (`robust_sweep.py` + `resume_sweep.py`)
+### Robustness sweep (`robust_sweep.py`)
 
 The single-passage result above was stress-tested across **3 disjoint
 WikiText-103 passages x multiple context lengths (up to 3584, near Llama-2's
@@ -197,9 +197,7 @@ reference in every row; only the V scheme changes.
   plain ternary 7.27 at TinyLlama P0/896) than on 7B (no rescue), but never
   closes the gap to INT2. Confirms the limit is bit-depth, not just outliers.
 
-Raw per-row data: `baseline_results/robust_sweep_resumed.json` and the run
-logs. The sweep is crash-resilient (per-row checkpointing in `resume_sweep.py`)
-because it was developed through repeated power interruptions.
+Raw per-row data: `baseline_results/robust_sweep_resumed.json`.
 
 ### GSM8K (honest, cache-path — but not discriminating here)
 
@@ -213,10 +211,9 @@ base model — PPL is the operative quality metric here.
 
 ### Phase 1 baseline (Llama-3.2-1B, for methodology validation)
 
-Established the measurement harness and killed three false "OOM" bugs
-(full-vocab CE, full-sequence lm_head, O(n^2) attention fallback) before
-trusting any downstream number. Validated identically on Windows and WSL.
-See `PROJECT_REPORT.md` and `PHASE2_README.md` for the full writeup.
+Established the measurement harness and eliminated three false "OOM" bugs
+(full-vocab cross-entropy, full-sequence lm_head projection, O(n^2) attention
+fallback) before trusting any downstream number.
 
 ### B2 — real packed 2-bit storage (`b2_packed_int2.py`)
 
@@ -293,11 +290,11 @@ ternary_v.py               V-cache quantizers: ternary, Hadamard+INT2, Hadamard+
                            plus the monkeypatch that swaps KIVI's attention forward
 probe_cache_ppl.py         Single-passage cache-path PPL probe (the bug-catching tool)
 robust_sweep.py            Multi-passage / multi-length / multi-model robustness sweep
-resume_sweep.py            Crash-resilient resume (per-row checkpointing) for the sweep
-setup_phase2.sh            WSL environment setup (KIVI + flash-attn + pinned deps)
-diag_attn*.py              Attention-implementation diagnostics (Phase 1 debugging)
-PROJECT_REPORT.md          Phase 1 writeup
-PHASE2_README.md           Phase 2 writeup
+make_figures.py            Regenerates all figures from the result data
+setup_phase2.sh            Environment setup (KIVI + flash-attn + pinned deps)
+kv_hadamard_kaggle_tests.ipynb  Cloud validation notebook (fp16 ref + long-context)
+paper/                     LaTeX source + compiled PDF of the paper
+figures/                   Publication figures
 baseline_results/          JSON result dumps from every harness run
 ```
 
